@@ -1898,6 +1898,34 @@ pre code {
 .post-body h6:hover .headerlink:hover {
   opacity: 1;
 }
+.post-body .block {
+  border-style: none none none solid;
+  border-color: #008b8b;
+  border-width: 4px;
+  margin: 12px;
+  padding-left: 12px;
+}
+.post-body info {
+  color: #9c9ea1;
+  size: 2;
+  font-size: 0.8em;
+}
+.post-body arxiv {
+  background: #94070a;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-family: Noto Serif;
+  box-shadow: 2px 2px 2px 0px #808080;
+}
+.post-body jrnl {
+  background: #5691ea;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-family: Noto Serif;
+  box-shadow: 2px 2px 2px 0px #808080;
+}
 .post-body a {
   text-decoration: none;
   border-bottom: none;
