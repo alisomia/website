@@ -1914,7 +1914,7 @@ pre code {
   background: #94070a;
   color: #fff;
   border-radius: 4px;
-  font-size: 0.7em;
+  font-size: 0.9em;
   font-family: Noto Serif;
   box-shadow: 2px 2px 2px 0px #808080;
 }
@@ -1922,9 +1922,25 @@ pre code {
   background: #5691ea;
   color: #fff;
   border-radius: 4px;
-  font-size: 0.7em;
+  font-size: 0.9em;
   font-family: Noto Serif;
   box-shadow: 2px 2px 2px 0px #808080;
+}
+.post-body .container {
+  display: flex;
+}
+.post-body .article {
+  flex: 1;
+  border-style: none none none solid;
+  border-color: #008b8b;
+  border-width: 4px;
+  margin: 12px;
+  padding-left: 12px;
+  line-height: 1.3em;
+}
+.post-body .link {
+  width: 80px;
+  justify-content: center;
 }
 .post-body a {
   text-decoration: none;
