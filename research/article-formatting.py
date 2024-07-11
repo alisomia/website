@@ -7,7 +7,7 @@ def transform_markdown_to_html(input_file, output_file):
         markdown_content = md_file.read()
 
     # Regular expression to match each entry in the Markdown file
-    entry_pattern = re.compile(r'\d+\.\s*(.*?)\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)$', re.MULTILINE | re.DOTALL)
+    entry_pattern = re.compile(r'\d+\.\s*(.*?)\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)\s*\n\s*-\s*(.*?)\n$', re.MULTILINE | re.DOTALL)
 
     # Find all entries
     entries = entry_pattern.findall(markdown_content)
@@ -21,10 +21,13 @@ mathjax: true
 ---
 <post-body style="line-height: 1.3"> 
 
-All authors are listed in alphabetical order unless otherwise specified.
+All authors are listed in alphabetical order unless otherwise specified. 
 ''')
 
         i = 0
+        preprint = 0
+        html_file.write(f'''## Published Papers''')
+
         for entry in entries:
             title = entry[0]
             journal = entry[1]
@@ -35,9 +38,18 @@ All authors are listed in alphabetical order unless otherwise specified.
             link_arxiv = entry[4]
             link_arxiv = re.sub(r'arxiv:\s*(.*?)\s*', r'\1',link_arxiv)
             link_published = entry[5]
+            # print(link_published)
             matches = re.findall(r'(.*?):\s?(.*)',link_published)
-            jrnl_name = matches[0][0]
-            jrnl_link = matches[0][1]
+            if len(matches)>0:
+                jrnl_name = matches[0][0]
+                jrnl_link = matches[0][1]
+            else:
+                jrnl_name = ''
+                jrnl_link = ''
+
+            if jrnl_link == '' and preprint == 0:
+                preprint = 1
+                html_file.write(f'''## Preprints''')
 
             html_content = html_format(title, journal, authors, info, link_arxiv, jrnl_link, jrnl_name)
             # Write the HTML content to the output file
@@ -50,7 +62,7 @@ All authors are listed in alphabetical order unless otherwise specified.
 
 
 def link_format(link,style,name):
-    return f'''<div style="margin:0px;"><a href="{link}"><{style}>&nbsp;{name}&nbsp;</{style}></a></div><br>\n'''
+    return f'''<div style="margin:10px;"><a href="{link}"><{style}>&nbsp;{name}&nbsp;</{style}></a></div>'''
 
 def html_format(title, journal, authors, info, link_arxiv, link_published, jrnl_name):
     link_part = f''''''
@@ -64,7 +76,8 @@ def html_format(title, journal, authors, info, link_arxiv, link_published, jrnl_
    <div class="article">
       {title}<br>
       <info>{journal}</info><br>
-      <info>{authors}</info>  
+      <info>{authors}  </info> <br>
+      <info>{info} </info>
    </div>
    <div class="link">
       {link_part}
@@ -75,5 +88,5 @@ def html_format(title, journal, authors, info, link_arxiv, link_published, jrnl_
 
 # Example usage:
 input_markdown_file = './source/research/articles.md'
-output_html_file = './source/research/index2.md'
+output_html_file = './source/research/index.md'
 transform_markdown_to_html(input_markdown_file, output_html_file)
