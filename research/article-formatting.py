@@ -56,6 +56,8 @@ All authors are listed in alphabetical order unless otherwise specified.
             html_file.write(html_content + '\n')
             i+=1
             print(f'Article {i} formatted!')
+            print(title)
+            
 
 
     print(f'Transformation completed. HTML saved to {output_file}')
